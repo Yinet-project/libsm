@@ -19,8 +19,9 @@ use num_traits::*;
 
 use alloc::string::String;
 use alloc::vec::Vec;
-use rand::os::OsRng;
+use rand::rngs::OsRng;
 use rand::Rng;
+use rand::RngCore;
 
 pub struct EccCtx {
     fctx: FieldCtx,
@@ -450,13 +451,12 @@ impl EccCtx {
     }
 
     pub fn random_uint(&self) -> BigUint {
-        let mut rng = OsRng::new().unwrap();
         let mut buf: [u8; 32] = [0; 32];
 
         let mut ret;
 
         loop {
-            rng.fill_bytes(&mut buf[..]);
+            OsRng.fill_bytes(&mut buf[..]);
             ret = BigUint::from_bytes_be(&buf[..]);
             if ret < self.get_n() - BigUint::one() && ret != BigUint::zero() {
                 break;

@@ -20,13 +20,12 @@ Sample:
 
 ```
 use libsm::sm4::{Mode, Cipher};
-use rand::os::OsRng;
+use rand::rngs::OsRng;
 use rand::Rng;
 
 fn rand_block() -> [u8; 16] {
-    let mut rng = OsRng::new().unwrap();
     let mut block: [u8; 16] = [0; 16];
-    rng.fill_bytes(&mut block[..]);
+    OsRng.fill_bytes(&mut block[..]);
     block
 }
 
